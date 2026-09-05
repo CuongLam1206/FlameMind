@@ -11,6 +11,7 @@ import argparse
 import json
 import random
 import sys
+from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # console Windows không phá chữ Việt
 
@@ -43,7 +44,7 @@ def make_scenario(family: tuple, rng: random.Random) -> dict:
         "hour": rng.randint(0, 23),
         "sensors": {
             "smoke_obs_per_m": sensor_curve(smoke, rng.uniform(8, 25), rng),
-            "temperature_c": sensor_curve(temp - 26, rng.uniform(20, 45), rng, ),
+            "temperature_c": sensor_curve(temp - 26, rng.uniform(20, 45), rng),
             "co_ppm": sensor_curve(co, rng.uniform(15, 40), rng),
             "rate_of_rise_c_per_min": round(ror * rng.uniform(0.8, 1.2), 2),
         },
@@ -64,6 +65,7 @@ def main() -> None:
     args = ap.parse_args()
 
     rng = random.Random(args.seed)
+    Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as fh:
         for _ in range(args.n):
             fh.write(json.dumps(make_scenario(rng.choice(FAMILIES), rng), ensure_ascii=False) + "\n")
