@@ -1,0 +1,35 @@
+# Cấu hình huấn luyện SLM phán quyết — QLoRA theo ADR-0002
+# Mọi tham số đổi phải ghi experiment log; không sửa số trực tiếp trong notebook.
+
+base_model: Qwen/Qwen2.5-1.5B-Instruct   # nâng 3B-Instruct sau ablation E3, không nhảy cóc
+quantization: nf4
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj]
+sft:
+  epochs: 2
+  batch_per_device: 4
+  grad_accum: 4
+  lr: 2.0e-4
+dpo:
+  epochs: 1
+  batch_per_device: 2
+  grad_accum: 8
+  lr: 5.0e-7
+  beta: 0.1
+decoding:
+  # Grammar JSON bắt buộc: token đầu tiên là verdict trong {chay_that, lanh_tinh, khong_chay}
+  first_token_field: verdict
+  max_new_tokens: 256
+  temperature: 0.2
+export:
+  format: gguf
+  quant: Q4_K_M
+  targets: [jetson_orin_nano, raspberry_pi_5]
+gates:
+  verdict_accuracy_min: 0.85      # CONSTRAINTS G3
+  map50_msfsdb_min: 0.85          # CONSTRAINTS G3
+  far_per_camera_day_max: 1.0     # CONSTRAINTS G3
+  latency_p95_s_max: 5.0          # CONSTRAINTS G4, Jetson Orin Nano

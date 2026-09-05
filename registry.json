@@ -1,0 +1,36 @@
+{
+  "updated_at": "2026-09-04",
+  "mlflow_tracking_uri": "sqlite:///./mlflow.db",
+  "models": [
+    {
+      "tag": "det-0.0.0",
+      "base": "YOLOv11n",
+      "quant": "FP16",
+      "stage": "cho S2",
+      "metrics": { "map50_dfire": null, "map50_msfsdb": null },
+      "dvc_data_tag": null,
+      "mlflow_run_id": null,
+      "note": "baseline perception chưa huấn luyện"
+    },
+    {
+      "tag": "slm-0.0.0",
+      "base": "Qwen2.5-1.5B-Instruct",
+      "quant": "QLoRA nf4",
+      "stage": "cho S3",
+      "metrics": { "verdict_acc": null, "far_per_day": null },
+      "dvc_data_tag": null,
+      "mlflow_run_id": null,
+      "note": "SFT Lightning chưa chạy"
+    }
+  ],
+  "datasets": [
+    { "name": "D-Fire", "card": 1, "role": "train perception", "dvc_tag": null, "status": "chờ tải", "priority": "S1 đầu tiên" },
+    { "name": "MS-FSDB", "card": 3, "role": "benchmark perception + hard neg", "dvc_tag": null, "status": "đang tải qua gdown", "priority": "S1 tuần 2" },
+    { "name": "MmodalFire", "card": 4, "role": "benchmark phán quyết, held-out", "dvc_tag": null, "status": "đã tải + parse: 34 file cảm biến, 26 train / 8 held-out", "priority": "S1 tuần 2" },
+    { "name": "DFIRE-VIDEO", "card": 5, "role": "đo FAR, chỉ test", "dvc_tag": null, "status": "chờ tải", "priority": "S1 tuần 3" },
+    { "name": "BoWFire", "card": 5, "role": "nhiễu khó, chỉ test", "dvc_tag": null, "status": "chờ tải", "priority": "S1 tuần 3" },
+    { "name": "FireGuard-Scenes", "card": 6, "role": "train SLM phán quyết", "dvc_tag": null, "status": "chờ sinh v1", "priority": "S1 song song tuần 1" },
+    { "name": "FASDD", "card": 2, "role": "bổ sung train nếu thiếu", "dvc_tag": null, "status": "chưa cần", "priority": "sau S2" },
+    { "name": "HQFSD", "card": 2, "role": "bổ sung train nếu thiếu", "dvc_tag": null, "status": "chưa cần", "priority": "sau S2" }
+  ]
+}

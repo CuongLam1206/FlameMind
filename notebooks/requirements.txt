@@ -1,0 +1,13 @@
+# Môi trường huấn luyện — cài trong conda env "fire", không cài vào base
+# Tạo env:  conda create -n fire python=3.11 -y
+# Torch:    pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+# Còn lại:  pip install -r notebooks/requirements.txt
+unsloth
+transformers
+trl
+datasets
+mlflow
+lightning          # giữ cho các vòng train tùy biến sau này (fusion head...), SFT/DPO dùng unsloth
+ultralytics
+gdown
+pytest

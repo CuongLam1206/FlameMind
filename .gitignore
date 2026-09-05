@@ -1,0 +1,41 @@
+# Dữ liệu và model do DVC quản lý; git chỉ giữ README và splits khóa giao thức
+data/raw/*
+!data/raw/README.md
+data/external/*
+!data/external/README.md
+data/processed/*
+!data/processed/README.md
+data/analysis/*
+!data/analysis/README.md
+# data/splits/ KHÔNG bị ignore: file split theo git, xem data/splits/README.md
+
+# Trọng số models lớn và checkpoints (DVC quản lý)
+models/**/*.gguf
+models/**/*.pt
+models/**/*.pth
+models/**/*.onnx
+models/**/*.safetensors
+models/**/*.bin
+models/**/checkpoint-*/
+!models/**/README.md
+!models/registry.md
+
+# Môi trường và rác
+.venv/
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+.pytest_cache/
+unsloth_compiled_cache/
+__pycache__/
+*.pyc
+.wandb/
+mlruns/
+.DS_Store
+.env
+.env.local
+
+# Kết quả trung gian
+outputs/
+*.log
