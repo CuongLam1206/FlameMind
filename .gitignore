@@ -1,10 +1,13 @@
-# Dữ liệu và model do DVC quản lý; git chỉ giữ README và splits khóa giao thức
+# Dữ liệu và model do DVC quản lý; git chỉ giữ README, splits và verdict test/train nhỏ
 data/raw/*
 !data/raw/README.md
 data/external/*
 !data/external/README.md
-data/processed/*
+data/processed/scenarios/*
+data/processed/detection/*
+data/processed/hardneg/*
 !data/processed/README.md
+!data/processed/verdict/*.jsonl
 data/analysis/*
 !data/analysis/README.md
 # data/splits/ KHÔNG bị ignore: file split theo git, xem data/splits/README.md
